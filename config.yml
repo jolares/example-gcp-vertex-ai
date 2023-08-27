@@ -1,0 +1,26 @@
+
+framework: tensorflow
+
+random_seed: 0
+
+data:
+  uri: http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data
+  filename: 'auto-mpg.data'
+  attributes: ['MPG','Cylinders','Displacement','Horsepower','Weight','Acceleration','Model','Year','Origin']
+  target: MPG
+
+  ## Modeling Datasets
+  train_size: 0.8
+  validation_size: 0.2
+
+model:
+  fit_params:
+    epochs: 1000
+    callbacks: []
+
+  output_path: '${GCP_CS_TRAIN_OUTPUT_BUCKET_URI}/mpg/model'
+
+deploy:
+  gcp_project_id: '${GCP_PROJECT_ID}'
+  gcp_region: '${GCP_REGION}'
+  gcp_bucket_uri: '${GCP_CS_TRAIN_OUTPUT_BUCKET_URI}'

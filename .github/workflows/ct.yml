@@ -1,0 +1,19 @@
+name: CT
+on:
+  schedule:
+    - cron: 0 0 * * * # Run at the end of each day
+    - cron: 0 0 * * 0 # Run at the end of each week
+
+env:
+  CI: True
+
+jobs:
+  monitor:
+    name: Monitor
+    needs: changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: "echo "\TODO"\"
+      - run: "echo "\TODO: build report"\"
+      - run: "echo "\TODO: publish report"\"

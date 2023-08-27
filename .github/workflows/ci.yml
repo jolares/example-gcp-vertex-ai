@@ -1,0 +1,71 @@
+name: Vertex AI
+on:
+  push:
+    branches:
+      - main
+
+env:
+  CI: True
+
+jobs:
+  review:
+    name: Review Notebook
+    needs: changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Authenticate to Google Cloud
+        id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+
+      - name: Review Notebook
+        id: notebook-review
+        uses: google-github-actions/run-vertexai-notebook@v0
+          with:
+            gcs_source_bucket: '${{ env.GCS_SOURCE }}'
+            gcs_output_bucket: '${{ env.GCS_OUTPUT }}'
+            allowlist: '${{ needs.changes.outputs.notebooks_files }}'
+
+  build:
+    name: Build
+    needs: changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: "echo "\TODO"\"
+      # Train
+      # Evaluate
+      # Test
+      # Publish
+
+  deploy:
+    name: Deploy
+    needs: [build]
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: "echo "\TODO"\"
+      # Deploy endpoint
+
+  e2e:
+    name: Test E2E
+    needs: [deploy]
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: "echo "\TODO"\"
+      # E2E test endpoint
+
+  release:
+    name: Release
+    needs: [e2e]
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: "echo "\TODO"\"
+      # Release endpoint
+      # Add to registry for CT
+

@@ -1,0 +1,5 @@
+envyaml
+pandas
+numpy
+tensorflow
+google-cloud-aiplatform
